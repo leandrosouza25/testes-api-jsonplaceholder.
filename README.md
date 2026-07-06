@@ -29,3 +29,15 @@ Projeto de automação de testes End-to-End (E2E) desenvolvido para validar os p
    ```bash
    newman run collection.json --env-var "base_url=https://jsonplaceholder.typicode.com" -r htmlextra --reporter-htmlextra-export ./report.html
    ```
+
+---
+
+## 📊 Como visualizar o relatório na nuvem (GitHub Actions)
+
+Toda vez que um novo código é enviado, os testes rodam sozinhos na nuvem. Para baixar o relatório visual gerado pelo servidor:
+
+1. Acesse a aba **Actions** no topo deste repositório.
+2. Clique na execução mais recente da lista (marcada com um check verde `✔`).
+3. Role a página até o final, na seção **Artifacts**.
+4. Clique em **relatorio-postman** para baixar o arquivo compactado.
+5. Extraia o arquivo `.zip` e abra o `report.html` no seu navegador para ver os gráficos!
