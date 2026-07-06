@@ -1,0 +1,11 @@
+# Ignorar relatórios HTML locais (já que o GitHub Actions gera o dele na nuvem)
+report.html
+*.html
+
+# Ignorar pastas de dependências do Node (caso use futuramente)
+node_modules/
+npm-debug.log*
+
+# Ignorar arquivos ocultos do sistema operacional
+.DS_Store
+Thumbs.db
