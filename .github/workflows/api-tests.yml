@@ -1,0 +1,33 @@
+name: Execução de Testes de API - Newman
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  api-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Baixar o código do repositório
+      uses: actions/checkout@v4
+
+    - name: Configurar o Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18
+
+    - name: Instalar o Newman e Repórter
+      run: npm install -g newman newman-reporter-htmlextra
+
+    - name: Executar os Testes do Postman
+      run: newman run collection.json --env-var "base_url=https://typicode.com" -r htmlextra --reporter-htmlextra-export ./report.html
+
+    - name: Salvar o Relatório de Testes (Artifact)
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: relatorio-postman
+        path: ./report.html

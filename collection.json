@@ -1,0 +1,230 @@
+{
+  "info": {
+    "_postman_id": "6747cbfa-abe7-43cf-b81a-5526ddf8b84d",
+    "name": "New Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "54911398",
+    "_collection_link": "https://go.postman.co/collection/54911398-6747cbfa-abe7-43cf-b81a-5526ddf8b84d?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "GET Posts",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code deve ser 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Resposta deve ser um array\", function () {\r",
+              "    const response = pm.response.json();\r",
+              "    pm.expect(response).to.be.an('array');\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Deve retornar pelo menos um post\", function () {\r",
+              "    const response = pm.response.json();\r",
+              "    pm.expect(response.length).to.be.greaterThan(0);\r",
+              "});\r",
+              "pm.test(\"O primeiro post deve possuir userId\", function () {\r",
+              "    const response = pm.response.json();\r",
+              "    pm.expect(response[0]).to.have.property('userId');\r",
+              "});\r",
+              "\r",
+              "pm.test(\"O primeiro post deve possuir id\", function () {\r",
+              "    const response = pm.response.json();\r",
+              "    pm.expect(response[0]).to.have.property('id');\r",
+              "});\r",
+              "\r",
+              "pm.test(\"O primeiro post deve possuir title\", function () {\r",
+              "    const response = pm.response.json();\r",
+              "    pm.expect(response[0]).to.have.property('title');\r",
+              "});\r",
+              "\r",
+              "pm.test(\"O primeiro post deve possuir body\", function () {\r",
+              "    const response = pm.response.json();\r",
+              "    pm.expect(response[0]).to.have.property('body');\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/posts",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "posts"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST Create Post",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code deve ser 201\", function () {\r",
+              "    pm.response.to.have.status(201);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"A resposta deve conter um ID\", function () {\r",
+              "    const response = pm.response.json();\r",
+              "    pm.expect(response).to.have.property('id');\r",
+              "});\r",
+              "\r",
+              "pm.test(\"O título deve ser retornado corretamente\", function () {\r",
+              "    const response = pm.response.json();\r",
+              "    pm.expect(response.title).to.eql(\"Meu primeiro post automatizado\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"O userId deve ser 1\", function () {\r",
+              "    const response = pm.response.json();\r",
+              "    pm.expect(response.userId).to.eql(1);\r",
+              "});\r",
+              "\r",
+              "const response = pm.response.json();\r",
+              "\r",
+              "pm.environment.set(\"post_id\", response.id);\r",
+              "\r",
+              "console.log(\"Post ID salvo:\", response.id);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"title\": \"Meu primeiro post automatizado\",\r\n    \"body\": \"Projeto de API Testing com Postman e Newman\",\r\n    \"userId\": 1\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/posts",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "posts"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PUT Update Post",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code deve ser 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"O título deve ter sido atualizado\", function () {\r",
+              "    const response = pm.response.json();\r",
+              "    pm.expect(response.title).to.eql(\"Post atualizado\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"O body deve ter sido atualizado\", function () {\r",
+              "    const response = pm.response.json();\r",
+              "    pm.expect(response.body).to.eql(\r",
+              "        \"Atualizado via automação Postman + Newman\"\r",
+              "    );\r",
+              "});\r",
+              "\r",
+              "pm.test(\"O ID deve permanecer o mesmo\", function () {\r",
+              "    const response = pm.response.json();\r",
+              "    pm.expect(response.id).to.eql(1);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"title\": \"Post atualizado\",\r\n    \"body\": \"Atualizado via automação Postman + Newman\",\r\n    \"userId\": 1\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/posts/1",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "posts",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DELETE Post",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code deve ser 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"A resposta deve estar vazia\", function () {\r",
+              "    pm.expect(pm.response.json()).to.deep.equal({});\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/posts/1",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "posts",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

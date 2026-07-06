@@ -1,0 +1,22 @@
+{
+	"id": "f1fef320-e4e4-452d-89d7-d03d8589c462",
+	"name": "QA Environment",
+	"values": [
+		{
+			"key": "base_url",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "post_id",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		}
+	],
+	"color": null,
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2026-07-05T18:14:57.951Z",
+	"_postman_exported_using": "Postman/12.16.4"
+}
